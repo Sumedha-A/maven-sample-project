@@ -1,22 +1,18 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
-trigger:
-- main
-
-pool:
-  vmImage: ubuntu-latest
+pool: 
+  name: Default
+  demands: maven
 
 steps:
-- task: Maven@3
+- task: JFrogMaven@1
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
+    goals: 'clean deploy'
+    artifactoryResolverService: 'Artifactory-Cloud'
+    targetResolveReleaseRepo: 'maven-azure-libs-release'
+    targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
+    artifactoryDeployService: 'Artifactory-Cloud'
+    targetDeployReleaseRepo: 'maven-azure-libs-release-local'
+    targetDeploySnapshotRepo: 'maven-xray-libs-snapshot-local'
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+  
