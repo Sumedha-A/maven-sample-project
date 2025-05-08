@@ -1,3 +1,6 @@
+
+pool: 
+  name: Default
 steps:
 - task: JFrogMaven@1
   inputs:
