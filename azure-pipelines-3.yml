@@ -11,7 +11,7 @@ pool:
 
 steps:
 - powershell: |
-    $env:JFROG_CLI_JAR_PATH="C:\jfrog\extractors\build-info-extractor-maven3-2.41.24-uber.jar"
+    $env:JFROG_CLI_JAR_PATH="C:\Jfrog-extractors\build-info-extractor-maven3-2.41.24-uber.jar"
     java -jar $env:JFROG_CLI_JAR_PATH
   displayName: "Set JFROG_CLI_JAR_PATH and test"
   
