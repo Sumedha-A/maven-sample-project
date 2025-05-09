@@ -8,17 +8,25 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-  
-steps:
-- task: JFrogMaven@1
-  inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'clean deploy'
-    artifactoryResolverService: 'Artifactory-Cloud'
-    targetResolveReleaseRepo: 'maven-azure-libs-release'
-    targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
-    artifactoryDeployService: 'Artifactory-Cloud'
-    targetDeployReleaseRepo: 'maven-azure-libs-release-local'
-    targetDeploySnapshotRepo: 'maven-xray-libs-snapshot-local'
-    javaHomeOption: 'JDKVersion'
 
+steps:
+  - 
+- task: JFrogGenericArtifacts@1
+  inputs:
+    command: 'Upload'
+    connection: 'Artifactory'
+    specSource: 'taskConfiguration'
+    fileSpec: |
+      {
+        "files": [
+          {
+            "pattern": "*",
+            "target": "maven-azure-libs-release-local"
+          }
+        ]
+      }
+    collectBuildInfo: true
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    includeEnvVars: true
+    failNoOp: true
