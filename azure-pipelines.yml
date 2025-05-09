@@ -8,19 +8,24 @@ trigger:
 
 pool:
   name: SumedhaPool
-
 steps:
-    - task: JFrogMaven@1
-      inputs:
-        mavenPomFile: 'pom.xml'
-        goals: 'clean deploy'
-        artifactoryResolverService: 'Artifactory-Cloud'
-        targetResolveReleaseRepo: 'maven-azure-libs-release'
-        targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
-        artifactoryDeployService: 'Artifactory-Cloud'
-        targetDeployReleaseRepo: 'maven-azure-libs-release-local'
-        targetDeploySnapshotRepo: 'maven-azure-libs-snapshot-local'
-        collectBuildInfo: true
-        buildName: '$(Build.DefinitionName)'
-        buildNumber: '$(Build.BuildNumber)'
-        javaHomeOption: 'JDKVersion'
+  - script: |
+      sudo apt-get update
+      sudo apt-get install -y maven
+    displayName: 'Install Maven'
+
+  - task: JFrogMaven@1
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean deploy'
+      artifactoryResolverService: 'Artifactory-Cloud'
+      targetResolveReleaseRepo: 'maven-azure-libs-release'
+      targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
+      artifactoryDeployService: 'Artifactory-Cloud'
+      targetDeployReleaseRepo: 'maven-azure-libs-release-local'
+      targetDeploySnapshotRepo: 'maven-azure-libs-snapshot-local'
+      collectBuildInfo: true
+      buildName: '$(Build.DefinitionName)'
+      buildNumber: '$(Build.BuildNumber)'
+      javaHomeOption: 'JDKVersion'
+
