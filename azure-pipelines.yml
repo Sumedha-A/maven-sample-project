@@ -10,7 +10,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  - 
 - task: JFrogGenericArtifacts@1
   inputs:
     command: 'Upload'
