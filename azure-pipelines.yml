@@ -10,22 +10,17 @@ pool:
   name: Default
 
 steps:
-- task: JFrogGenericArtifacts@1
-  inputs:
-    command: 'Upload'
-    connection: 'Artifactory'
-    specSource: 'taskConfiguration'
-    fileSpec: |
-      {
-        "files": [
-          {
-            "pattern": "*",
-            "target": "maven-azure-libs-release-local"
-          }
-        ]
-      }
-    collectBuildInfo: true
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
-    includeEnvVars: true
-    failNoOp: true
+    - task: JFrogMaven@1
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean deploy'
+        artifactoryResolverService: 'Artifactory-Cloud'
+        targetResolveReleaseRepo: 'maven-azure-libs-release'
+        targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
+        artifactoryDeployService: 'Artifactory-Cloud'
+        targetDeployReleaseRepo: 'maven-azure-libs-release-local'
+        targetDeploySnapshotRepo: 'maven-azure-libs-snapshot-local'
+        collectBuildInfo: true
+        buildName: '$(Build.DefinitionName)'
+        buildNumber: '$(Build.BuildNumber)'
+        javaHomeOption: 'JDKVersion'
