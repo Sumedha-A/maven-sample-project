@@ -1,8 +1,3 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
 trigger:
 - main
 
@@ -10,14 +5,25 @@ pool:
   name: Windows-19
 
 steps:
-- powershell: |
-    $env:JFROG_CLI_JAR_PATH="C:\Jfrog-extractors\build-info-extractor-maven3-2.41.24-uber.jar"
-    java -jar $env:JFROG_CLI_JAR_PATH
-  displayName: "Set JFROG_CLI_JAR_PATH and test"
-  
+
+# ✅ Install JFrog CLI using the JFrogToolsInstaller task
+- task: JFrogToolsInstaller@1
+  inputs:
+    artifactoryConnection: 'Artifactory'
+    cliInstallationRepo: 'helm'  # ⚠️ Make sure this repo actually contains jfrog-cli, not just Helm charts!
+
+# ✅ Set JFROG_CLI_JAR_PATH variable for Maven extractor
+- task: PowerShell@2
+  displayName: 'Set JFROG_CLI_JAR_PATH'
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "##vso[task.setvariable variable=JFROG_CLI_JAR_PATH]C:\\Jfrog-extractors\\build-info-extractor-maven3-2.41.24-uber.jar"
+
+# ✅ Run Maven build using JFrog CLI
 - task: JFrogMaven@1
   inputs:
-    mavenPomFile: ' pom.xml'
+    mavenPomFile: 'pom.xml'  # ✅ Corrected spacing
     goals: 'clean deploy'
     artifactoryResolverService: 'Artifactory'
     targetResolveReleaseRepo: 'maven-azure-libs-release'
@@ -29,4 +35,3 @@ steps:
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     javaHomeOption: 'JDKVersion'
-    
