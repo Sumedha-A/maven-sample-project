@@ -12,8 +12,8 @@ pool:
 steps:
 - task: JFrogMaven@1
   inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'clean deploy --insecure-tls'
+    mavenPomFile: ' pom.xml'
+    goals: 'clean deploy'
     artifactoryResolverService: 'Artifactory'
     targetResolveReleaseRepo: 'maven-azure-libs-release'
     targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
