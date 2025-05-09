@@ -10,6 +10,11 @@ pool:
   name: Windows-19
 
 steps:
+- powershell: |
+    $env:JFROG_CLI_JAR_PATH="C:\jfrog\extractors\build-info-extractor-maven3-2.41.24-uber.jar"
+    java -jar $env:JFROG_CLI_JAR_PATH
+  displayName: "Set JFROG_CLI_JAR_PATH and test"
+  
 - task: JFrogMaven@1
   inputs:
     mavenPomFile: ' pom.xml'
