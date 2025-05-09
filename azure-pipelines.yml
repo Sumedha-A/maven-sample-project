@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: Default
+  name: SumedhaPool
 
 steps:
     - task: JFrogMaven@1
