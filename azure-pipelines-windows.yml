@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  name: Windows-19
+steps: 
+- task: JFrogMaven@1
+  inputs:
+    mavenPomFile: ' pom.xml'
+    goals: 'clean deploy'
+    artifactoryResolverService: 'Artifactory-Cloud'
+    targetResolveReleaseRepo: 'maven-azure-libs-release'
+    targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
+    artifactoryDeployService: 'Artifactory-Cloud'
+    targetDeployReleaseRepo: 'maven-azure-libs-release-local'
+    targetDeploySnapshotRepo: 'maven-azure-libs-snapshot'
+    collectBuildInfo: true
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    javaHomeOption: 'JDKVersion'
