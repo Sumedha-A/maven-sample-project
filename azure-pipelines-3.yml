@@ -37,7 +37,7 @@ steps:
     buildNumber: '$(Build.BuildNumber)'
     targetRepo: 'maven-azure-target-repo-local'
     status: 'Released'
-    sourceRepo: 'maven-azure-libs-release-local'
+    sourceRepo: 'maven-azure-libs-snapshot-local'
     includeDependencies: true
     copy: true
     dryRun: false
