@@ -13,7 +13,7 @@ steps:
 - task: JFrogMaven@1
   inputs:
     mavenPomFile: '$(workingDirectory)\pom.xml'  
-    goals: 'install'
+    goals: 'deploy'
     artifactoryResolverService: 'Artifactory'
     targetResolveReleaseRepo: 'maven-azure-libs-release'
     targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
@@ -36,7 +36,6 @@ steps:
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     targetRepo: 'maven-azure-target-repo-local'
-
     status: 'Released'
     sourceRepo: 'maven-azure-libs-release-local'
     includeDependencies: true
