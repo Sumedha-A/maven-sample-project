@@ -25,13 +25,18 @@ steps:
     buildNumber: '$(Build.BuildNumber)'
     javaHomeOption: 'JDKVersion'
   displayName: 'Run JFrog Maven Build'
-
+- task: JFrogPublishBuildInfo@1
+  inputs:
+    artifactoryConnection: 'Artifactory'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
 - task: JFrogBuildPromotion@1
   inputs:
     artifactoryConnection: 'Artifactory'
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     targetRepo: 'maven-azure-target-repo-local'
+
     status: 'Released'
     sourceRepo: 'maven-azure-libs-release-local'
     includeDependencies: true
