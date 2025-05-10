@@ -1,5 +1,3 @@
-
-
 pool:
   name: Windows-19
 
@@ -18,10 +16,10 @@ steps:
     inputs:
       mavenPomFile: 'pom.xml'
       goals: 'clean deploy'
-      artifactoryResolverService: 'Artifactory-Cloud'
+      artifactoryResolverService: 'Artifactory'
       targetResolveReleaseRepo: 'maven-azure-libs-release'
       targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
-      artifactoryDeployService: 'Artifactory-Cloud'
+      artifactoryDeployService: 'Artifactory'
       targetDeployReleaseRepo: 'maven-azure-libs-release-local'
       targetDeploySnapshotRepo: 'maven-azure-libs-snapshot-local'
       collectBuildInfo: true
