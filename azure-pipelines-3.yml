@@ -16,7 +16,7 @@ steps:
 - task: JFrogMaven@1
   inputs:
     mavenPomFile: '$(workingDirectory)\pom.xml'  
-    goals: 'clean install'
+    goals: 'install'
     artifactoryResolverService: 'Artifactory'
     targetResolveReleaseRepo: 'maven-azure-libs-release'
     targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
