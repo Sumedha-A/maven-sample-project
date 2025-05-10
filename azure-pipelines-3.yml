@@ -4,27 +4,20 @@ trigger:
 pool:
   name: Windows-19
 
+variables:
+  workingDirectory: '$(Agent.BuildDirectory)/my project with spaces'
+
 steps:
+- script: |
+    mkdir -p "$(workingDirectory)"
+    cp -r $(Build.SourcesDirectory)/* "$(workingDirectory)/"
+  displayName: 'Prepare working directory with spaces'
 
-# ✅ Install JFrog CLI using the JFrogToolsInstaller task
-- task: JFrogToolsInstaller@1
-  inputs:
-    artifactoryConnection: 'Artifactory'
-    cliInstallationRepo: 'helm'  # ⚠️ Make sure this repo actually contains jfrog-cli, not just Helm charts!
 
-# ✅ Set JFROG_CLI_JAR_PATH variable for Maven extractor
-- task: PowerShell@2
-  displayName: 'Set JFROG_CLI_JAR_PATH'
-  inputs:
-    targetType: 'inline'
-    script: |
-      Write-Host "##vso[task.setvariable variable=JFROG_CLI_JAR_PATH]C:\\Jfrog-extractors\\build-info-extractor-maven3-2.41.24-uber.jar"
-
-# ✅ Run Maven build using JFrog CLI
 - task: JFrogMaven@1
   inputs:
-    mavenPomFile: 'pom.xml'  # ✅ Corrected spacing
-    goals: 'clean deploy'
+    mavenPomFile: 'pom.xml'  
+    goals: 'clean install'
     artifactoryResolverService: 'Artifactory'
     targetResolveReleaseRepo: 'maven-azure-libs-release'
     targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
@@ -35,3 +28,16 @@ steps:
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     javaHomeOption: 'JDKVersion'
+  displayName: 'Run JFrog Maven Build'
+  
+- task: JFrogBuildPromotion@1
+  inputs:
+     artifactoryConnection: 'Artifactory'
+     buildName: '$(Build.DefinitionName)'
+     buildNumber: '$(Build.BuildNumber)'
+     targetRepo: 'maven-azure-target-repo-local'
+     status: 'Released'
+     sourceRepo: 'maven-azure-libs-release-local'
+     includeDependencies: true
+     copy: true
+     dryRun: false
