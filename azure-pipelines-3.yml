@@ -1,11 +1,8 @@
-#trigger:
-#- main
-
 pool:
   name: Windows-19
 
 variables:
-  workingDirectory: '$(Agent.BuildDirectory)\my project with spaces'
+  workingDirectory: '$(Agent.BuildDirectory)\my_project_with_spaces'
 
 steps:
 - script: |
