@@ -1,0 +1,49 @@
+
+
+pool:
+  name: Windows-19
+
+steps:
+  - script: |
+      sudo apt-get update
+      sudo apt-get install -y openjdk-17-jdk maven
+      JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
+      echo "Detected JAVA_HOME: $JAVA_HOME"
+      echo "##vso[task.setvariable variable=JAVA_HOME]$JAVA_HOME"
+      java -version
+      mvn -version
+    displayName: 'Install Java 17 and Maven'
+
+  - task: JFrogMaven@1
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean deploy'
+      artifactoryResolverService: 'Artifactory-Cloud'
+      targetResolveReleaseRepo: 'maven-azure-libs-release'
+      targetResolveSnapshotRepo: 'maven-azure-libs-snapshot'
+      artifactoryDeployService: 'Artifactory-Cloud'
+      targetDeployReleaseRepo: 'maven-azure-libs-release-local'
+      targetDeploySnapshotRepo: 'maven-azure-libs-snapshot-local'
+      collectBuildInfo: true
+      buildName: '$(Build.DefinitionName)'
+      buildNumber: '$(Build.BuildNumber)'
+      javaHomeOption: 'Path'
+      jdkDirectory: '$(JAVA_HOME)'
+
+  - task: JFrogPublishBuildInfo@1
+    inputs:
+     artifactoryConnection: 'Artifactory'
+     buildName: '$(Build.DefinitionName)'
+     buildNumber: '$(Build.BuildNumber)'
+  
+  - task: JFrogBuildPromotion@1
+    inputs:
+     artifactoryConnection: 'Artifactory'
+     buildName: '$(Build.DefinitionName)'
+     buildNumber: '$(Build.BuildNumber)'
+     targetRepo: 'maven-azure-target-repo-local'
+     status: 'Released'
+     sourceRepo: 'maven-azure-libs-release-local'
+     includeDependencies: true
+     copy: true
+     dryRun: false
