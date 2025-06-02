@@ -1,0 +1,41 @@
+name: Maven-Build
+on:
+  push:
+    branches:
+      - '*'
+jobs:
+  auth:
+    permissions:
+      contents: read
+      id-token: write
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - name: Checkout Project
+        uses: actions/checkout@v4
+      - name: Install JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v4
+        env:
+          # JFrog platform url (for example: https://acme.jfrog.io)
+          JF_URL: ${{ secrets.JF_URL }}
+          JF_ACCESS_TOKEN: ${{ secrets.JF_IDENTIFY_TOKEN }}
+      # Note: The 'ping' can succeed even if the API key is wrong/missing.
+      - name: Ping RT
+        run: |
+          jf --version
+          jf rt ping
+
+      - name: Configure JFrog CLI for Maven
+        run: |
+          # Add Artifactory server config for Maven
+          jf mvn-config --server-id-deploy=setup-jfrog-cli-server --repo-deploy-releases=test-libs-release-local --repo-deploy-snapshots=test-libs-snapshot-local 
+
+      - name: Deploy artifacts
+        run: |
+          echo deploying artifacts via maven
+          jf mvn deploy --build-number=1 --build-name="Maven-demo-Github" -Dmaven.install.skip=true -Drevision=1
+          jf rt bp "Maven-demo-Github" 1
