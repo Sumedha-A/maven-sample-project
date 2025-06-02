@@ -27,13 +27,16 @@ jobs:
       - name: Ping RT
         run: |
           jf --version
-          jf rt ping --url "https://hts2.jfrog.io/artifactory"
+          jf rt ping --url JF_URL
 
       - name: Configure JFrog CLI for Maven
         run: |
           # Add Artifactory server config for Maven
-          jf mvn-config --server-id-deploy=setup-jfrog-cli-server --repo-deploy-releases=test-libs-release-local --repo-deploy-snapshots=test-libs-snapshot-local 
-
+          jf mvn-config --server-id-deploy=setup-jfrog-cli-server --repo-deploy-releases=sumedha-libs-release-local --repo-deploy-snapshots=sumedha-libs-snapshot-local 
+       
+      - name: Check JFrog CLI config
+        run: jf c show setup-jfrog-cli-server
+      
       - name: Deploy artifacts
         run: |
           echo deploying artifacts via maven
