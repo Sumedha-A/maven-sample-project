@@ -54,12 +54,14 @@ jobs:
 
       - name: Deploy artifacts using Maven Wrapper
         run: |
-          echo Deploying artifacts via Maven Wrapper
-          jf mvn -f ./mvnw deploy \
-            --build-number=1 \
-            --build-name="Maven-demo-Github" \
-            -Dmaven.install.skip=true \
-            -Drevision=1
+         jf mvn deploy \
+         --build-number=1 \
+         --build-name="Maven-demo-Github" \
+         -Dmaven.install.skip=true \
+         -Drevision=1
+         env:
+         MAVEN_EXECUTABLE: ./mvnw
+
 
       - name: Publish build info
         run: jf rt bp "Maven-demo-Github" 1
