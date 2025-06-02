@@ -1,32 +1,18 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.2.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <servers>
     <server>
       <username>sumedhaa</username>
-      <password>cmVmdGtuOjAxOjE3ODAzODE3NTU6R3JVWHFwMW01QkNGYmlQdkxIMlIwT2plOGRq</password>
+      <password>cmVmdGtuOjAxOjE3ODAzOTIxNDY6c0l1dnVncWJqRnhzWjl4a25BNEpNOHpMMW41</password>
       <id>central</id>
     </server>
     <server>
       <username>sumedhaa</username>
-      <password>cmVmdGtuOjAxOjE3ODAzODE3NTU6R3JVWHFwMW01QkNGYmlQdkxIMlIwT2plOGRq</password>
+      <password>cmVmdGtuOjAxOjE3ODAzOTIxNDY6c0l1dnVncWJqRnhzWjl4a25BNEpNOHpMMW41</password>
       <id>snapshots</id>
     </server>
-    <server>
-      <username>sumedhaa</username>
-      <password>cmVmdGtuOjAxOjE3ODAzODE3NTU6R3JVWHFwMW01QkNGYmlQdkxIMlIwT2plOGRq</password>
-      <id>aa-v-mavenvirtual</id>
-    </server>
   </servers>
-  <mirrors>
-    <mirror>
-      <mirrorOf>*</mirrorOf>
-      <name>aa-v-mavenvirtual</name>
-      <url>https://hts2.jfrog.io/artifactory/aa-v-mavenvirtual</url>
-      <id>aa-v-mavenvirtual</id>
-    </mirror>
-  </mirrors>
   <profiles>
     <profile>
       <repositories>
@@ -35,14 +21,14 @@
             <enabled>false</enabled>
           </snapshots>
           <id>central</id>
-          <name>abhishek-libs-release</name>
-          <url>https://hts2.jfrog.io/artifactory/abhishek-libs-release</url>
+          <name>sumedha-libs-release</name>
+          <url>https://hts2.jfrog.io/artifactory/sumedha-libs-release</url>
         </repository>
         <repository>
           <snapshots />
           <id>snapshots</id>
-          <name>abhishek-libs-snapshot</name>
-          <url>https://hts2.jfrog.io/artifactory/abhishek-libs-snapshot</url>
+          <name>sumedha-libs-snapshot</name>
+          <url>https://hts2.jfrog.io/artifactory/sumedha-libs-snapshot</url>
         </repository>
       </repositories>
       <pluginRepositories>
@@ -51,14 +37,14 @@
             <enabled>false</enabled>
           </snapshots>
           <id>central</id>
-          <name>abhishek-libs-release</name>
-          <url>https://hts2.jfrog.io/artifactory/abhishek-libs-release</url>
+          <name>sumedha-libs-release</name>
+          <url>https://hts2.jfrog.io/artifactory/sumedha-libs-release</url>
         </pluginRepository>
         <pluginRepository>
           <snapshots />
           <id>snapshots</id>
-          <name>abhishek-libs-snapshot</name>
-          <url>https://hts2.jfrog.io/artifactory/abhishek-libs-snapshot</url>
+          <name>sumedha-libs-snapshot</name>
+          <url>https://hts2.jfrog.io/artifactory/sumedha-libs-snapshot</url>
         </pluginRepository>
       </pluginRepositories>
       <id>artifactory</id>
