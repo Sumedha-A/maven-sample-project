@@ -32,7 +32,7 @@ jobs:
       - name: Ping RT
         run: |
           jf --version
-          jf rt ping
+          jf rt ping --url https://hts2.jfrog.io/artifactory
 
       - name: Set up Maven settings (optional if using jf mvn)
         run: |
