@@ -27,7 +27,7 @@ jobs:
       - name: Ping RT
         run: |
           jf --version
-          jf rt ping --url JF_URL
+          jf rt ping --url https://hts2.jfrog.io/artifactory
 
       - name: Configure JFrog CLI for Maven
         run: |
