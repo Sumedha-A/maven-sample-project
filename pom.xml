@@ -93,12 +93,12 @@
     <repository>
         <id>central</id>
         <name>HTS2-releases</name>
-        <url>https://hts2.jfrog.io/artifactory/sumedha-libs-release</url>
+        <url>https://hts2.jfrog.io/artifactory/sumedha-libs-release-local</url>
     </repository>
         <snapshotRepository>
         <id>snapshots</id>
         <name>HTS2-snapshots</name>
-        <url>https://hts2.jfrog.io/artifactory/sumedha-libs-snapshot</url>
+        <url>https://hts2.jfrog.io/artifactory/sumedha-libs-snapshot-local</url>
     </snapshotRepository>
 </distributionManagement>
 </project>
