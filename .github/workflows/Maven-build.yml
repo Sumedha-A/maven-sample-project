@@ -27,7 +27,7 @@ jobs:
       - name: Ping RT
         run: |
           jf --version
-          jf rt ping --url "http://10.160.0.24:8082"
+          jf rt ping --url "https://hts2.jfrog.io"
 
       - name: Configure JFrog CLI for Maven
         run: |
