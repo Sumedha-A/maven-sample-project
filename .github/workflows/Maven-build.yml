@@ -48,5 +48,5 @@ jobs:
       - name: Deploy artifacts
         run: |
           echo deploying artifacts via maven
-          jf mvn deploy --build-number=1 --build-name="Maven-demo-Github" -Dmaven.install.skip=true -Drevision=1 -X
-          jf rt bp "Maven-demo-Github" 1 -X
+          jf mvn deploy --build-number=1 --build-name="Maven-demo-Github" -Dmaven.install.skip=true -Drevision=1
+          jf rt bp "Maven-demo-Github" 1
