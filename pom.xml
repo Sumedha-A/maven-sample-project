@@ -92,13 +92,13 @@
   <distributionManagement>
     <repository>
         <id>central</id>
-        <name>Artifactory-Debian-releases</name>
-        <url>http://localhost:8081/artifactory/lib-release-local</url>
+        <name>HTS2-releases</name>
+        <url>https://hts2.jfrog.io/artifactory/sumedha-libs-release</url>
     </repository>
-    <snapshotRepository>
+        <snapshotRepository>
         <id>snapshots</id>
-        <name>Artifactory-Debian-snapshots</name>
-        <url>http://localhost:8081/artifactory/lib-release-local</url>
+        <name>HTS2-snapshots</name>
+        <url>https://hts2.jfrog.io/artifactory/sumedha-libs-snapshot</url>
     </snapshotRepository>
 </distributionManagement>
 </project>
